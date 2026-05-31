@@ -11,7 +11,7 @@ services:
     region: oregon  # Change to: oregon | frankfurt | singapore | ohio
     plan: free      # Change to: starter | standard for production
 
-    buildCommand: npm ci && npm run build
+    buildCommand: npm ci && npm run build && cp -r .next/static .next/standalone/.next/static && cp -a public .next/standalone/public || true
     startCommand: node .next/standalone/server.js
 
     # Health check — Render uses this to verify the app is running
