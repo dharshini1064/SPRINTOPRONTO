@@ -5,6 +5,9 @@ const nextConfig = {
   // Output standalone bundle — optimal for Render & Docker deployments
   output: "standalone",
 
+  // Fix webpack "Module not found: Can't resolve 'encoding'" for Linear SDK
+  serverExternalPackages: ["@linear/sdk"],
+
   images: {
     remotePatterns: [
       {
