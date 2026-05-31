@@ -1,4 +1,11 @@
 /** @type {import('next').NextConfig} */
+
+// NextAuth requires a valid URL during the static prerendering build step.
+// If it's missing (e.g., on Render before the URL is known), provide a dummy fallback.
+if (!process.env.NEXTAUTH_URL) {
+  process.env.NEXTAUTH_URL = "http://localhost:3000"
+}
+
 const nextConfig = {
   reactStrictMode: true,
 
