@@ -20,7 +20,7 @@ export async function fetchLiveTickets(): Promise<WorkItem[]> {
     console.log("[Linear Connector] Fetching live tickets from Linear...")
     const issues = await client.issues({
       first: 20,
-      orderBy: "updatedAt"
+      orderBy: "updatedAt" as any
     })
 
     const ticketPromises = issues.nodes.map(async (issue) => {
