@@ -1,0 +1,72 @@
+# render.yaml — Render Blueprint for Sprintopronto AI
+# Documentation: https://render.com/docs/blueprint-spec
+#
+# Deploy automatically: connect your GitHub repo in Render Dashboard
+# and Render will detect this file and configure everything automatically.
+
+services:
+  - type: web
+    name: sprintopronto
+    runtime: node
+    region: oregon  # Change to: oregon | frankfurt | singapore | ohio
+    plan: free      # Change to: starter | standard for production
+
+    buildCommand: npm ci && npm run build
+    startCommand: node .next/standalone/server.js
+
+    # Health check — Render uses this to verify the app is running
+    healthCheckPath: /api/health
+
+    # Auto-deploy on every push to main branch
+    autoDeploy: true
+
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+      # NextAuth — REQUIRED. Set these in Render Dashboard → Environment tab.
+      # DO NOT put real values here — this file is committed to source control.
+      - key: NEXTAUTH_SECRET
+        sync: false   # Render will prompt you to set this in the dashboard
+
+      - key: NEXTAUTH_URL
+        sync: false   # Set to: https://your-app-name.onrender.com
+
+      # Groq AI (optional — fallback mode works without it)
+      - key: GROQ_API_KEY
+        sync: false
+
+      # Database (optional — JSON fallback used if not set)
+      # Uncomment and use fromDatabase if you add a Render Postgres instance below:
+      # - key: DATABASE_URL
+      #   fromDatabase:
+      #     name: sprintopronto-db
+      #     property: connectionString
+
+      # GitHub integration (optional)
+      - key: GITHUB_PAT
+        sync: false
+      - key: GITHUB_REPO
+        sync: false
+
+      # Linear integration (optional)
+      - key: LINEAR_API_KEY
+        sync: false
+
+      # Slack integration (optional)
+      - key: SLACK_BOT_TOKEN
+        sync: false
+
+# Optional: Add a managed Postgres database
+# Uncomment this block and link it above via DATABASE_URL if you want persistent data.
+# databases:
+#   - name: sprintopronto-db
+#     plan: free
+#     region: oregon
+
+# Optional: Add a Persistent Disk for the JSON fallback DB
+# (Only needed if you don't use Postgres)
+# disks:
+#   - name: sprintopronto-data
+#     mountPath: /var/data
+#     sizeGB: 1
