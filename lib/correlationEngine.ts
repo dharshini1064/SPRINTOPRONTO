@@ -128,7 +128,9 @@ export function runCorrelationEngine(
   if (suggestedActions.length === 0) {
     suggestedActions.push({
       id: "ACT-GEN-1",
-      text: "Review sprint board tasks that have no updates in 3 days."
+      text: "Review sprint board tasks that have no updates in 3 days.",
+      actionableId: undefined,
+      actionableType: "ticket"
     });
   }
 
