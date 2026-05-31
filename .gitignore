@@ -16,7 +16,7 @@ build/
 
 # ─── Local Database Fallback ─────────────────────────────────────────────────
 # The JSON file fallback DB — ephemeral, never commit
-data/
+/data/
 /tmp/sprintopronto_db.json
 
 # ─── IDE / OS Files ──────────────────────────────────────────────────────────
